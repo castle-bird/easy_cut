@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: easy-cut
+  servlet:
+    multipart:
+      maxFileSize: 10MB # 파일 하나의 최대 크기
+      maxRequestSize: 30MB  # 한 번에 최대 업로드 가능 용량
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+  jpa:
+    hibernate:
+      ddl-auto: ${spring.jpa.hibernate.ddl-auto}
+    open-in-view: false
+  profiles:
+    active: dev # dev, prod
+
