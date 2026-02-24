@@ -1,23 +1,28 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/easycut?reWriteBatchedInserts=true
+    url: jdbc:postgresql://localhost:5432/easycut?reWriteBatchedInserts=true  # 생성/수정 시, 쿼리 묶어서 보내도록 ?reWriteBatchedInserts=true 추가
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         show_sql: true
-        format_sql: true
-        use_sql_comments: true
+        jdbc:
+          batch_size: 20 # ?reWriteBatchedInserts=true 때 20개씩 묶어서 보내도록
+        # 배치 처리 효율을 높이기 위해 쿼리 순서 정렬
+        order_inserts: true
+        order_updates: true
+
   sql:
     init:
       mode: always
 
-# 로그 레벨
 logging:
   level:
-    com.sprint.mission.discodeit: debug
+    io.project.easycut.easy_cut: debug
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace

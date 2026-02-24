@@ -1,19 +1,30 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
 spring:
   application:
     name: easy-cut
+
   servlet:
     multipart:
-      maxFileSize: 10MB # 파일 하나의 최대 크기
-      maxRequestSize: 30MB  # 한 번에 최대 업로드 가능 용량
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${spring.datasource.url}
-    username: ${spring.datasource.username}
-    password: ${spring.datasource.password}
-  jpa:
-    hibernate:
-      ddl-auto: ${spring.jpa.hibernate.ddl-auto}
-    open-in-view: false
-  profiles:
-    active: dev # dev, prod
+      max-file-size: 10MB
+      max-request-size: 30MB
 
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100           # JPA N+1 방지. 100개씩 묶어서 쿼리
+
+  jackson:
+    property-naming-strategy: LOWER_CAMEL_CASE  # 기본이지만 명시
+    default-property-inclusion: non_null        # API 응담에서 Null은 제외해서 보냄 - 데이터 절약
+    # 서버에서 시간 응답 포메팅
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Seoul
+    serialization:
+      write-dates-as-timestamps: false          # Default: true. → Unix Timestamp로 출력 됨.

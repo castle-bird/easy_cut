@@ -1,18 +1,21 @@
 spring:
   datasource:
-    url: ${POSTGRES_URL}
+    url: ${POSTGRES_URL}?reWriteBatchedInserts=true
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  
   jpa:
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
         show_sql: false
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
 
-# 로그 레벨
 logging:
   level:
-    com.sprint.mission.discodeit: info
-    org.hibernate.SQL: info
-    org.hibernate.orm.jdbc.bind: info
+    io.project.easycut.easy_cut: info

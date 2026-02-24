@@ -59,6 +59,14 @@ CREATE TABLE IF NOT EXISTS reviews
     CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
--- 인덱스 추가 (조회 성능 향상)
-CREATE INDEX IF NOT EXISTS idx_timeslot_date ON time_slots (available_date);
-CREATE INDEX IF NOT EXISTS idx_reservation_user ON reservations (user_id);
+-- 6. 매장 이미지 (STORE_IMAGE)
+CREATE TABLE IF NOT EXISTS store_images
+(
+    id            SERIAL PRIMARY KEY,                  -- 이미지 ID
+    store_id      INTEGER      NOT NULL,               -- 매장 ID
+    path          VARCHAR(255) NOT NULL,               -- 이미지 저장 경로 (AWS S3 URL 등)
+    content_type  VARCHAR(20)  NOT NULL,               -- 이미지 컨텐츠 타입 (예: image/jpeg, image/png)
+    original_name VARCHAR(255) NOT NULL,               -- 이미지 원본 이름 (사용자가 업로드한 파일명)
+    is_main       BOOLEAN      NOT NULL DEFAULT FALSE, -- 썸네일 대표 이미지 여부
+    CONSTRAINT fk_storeimage_store FOREIGN KEY (store_id) REFERENCES stores (id)
+);
