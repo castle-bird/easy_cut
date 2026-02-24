@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseCreateEntity extends BaseIdEntity {
+public abstract class BaseTimeEntity extends BaseIdEntity {
 
   // 등록일(createdAt)만 필요한 엔티티(예: 미용실 이미지, 리뷰 등)를 위한 기반 클래스
   @CreatedDate
