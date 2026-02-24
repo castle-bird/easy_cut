@@ -1,9 +1,7 @@
 package io.project.easycut.easy_cut.domain.store.entity;
 
+import io.project.easycut.easy_cut.global.entity.BaseCreateEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -11,8 +9,5 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "store_images")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class StoreImage {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+public class StoreImage extends BaseCreateEntity {
 }
