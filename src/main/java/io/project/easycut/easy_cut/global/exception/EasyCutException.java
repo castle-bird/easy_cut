@@ -10,7 +10,9 @@ public class EasyCutException extends RuntimeException {
   private final Map<String, Object> details;
 
   /**
-   * 상세 에러 정보가 없는 경우
+   * <p>상세 에러 정보가 포함되지 않는 경우</p>
+   *
+   * @param errorCode
    */
   public EasyCutException(ErrorCode errorCode) {
     super(errorCode.getMessage());
@@ -19,7 +21,10 @@ public class EasyCutException extends RuntimeException {
   }
 
   /**
-   * 상세 에러 정보를 포함하는 경우
+   * <p>상세 에러 정보가 포함되어 있는 경우</p>
+   *
+   * @param errorCode
+   * @param details 상세 에러 정보
    */
   public EasyCutException(ErrorCode errorCode, Map<String, Object> details) {
     super(errorCode.getMessage());
