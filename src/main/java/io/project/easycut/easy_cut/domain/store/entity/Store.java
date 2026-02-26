@@ -48,7 +48,6 @@ public class Store extends BaseUpdateTimeEntity {
   @OneToMany(mappedBy = "store")
   private List<StoreImage> images = new ArrayList<>();
 
-
   @Builder
   public Store(User owner, String name, String description, String location, LocalTime openTime, LocalTime closeTime) {
     this.owner = owner;

@@ -53,4 +53,6 @@ public class TimeSlot extends BaseUpdateTimeEntity {
   public void release() {
     this.isAvailable = true;
   }
+
+
 }
