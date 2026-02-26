@@ -1,26 +1,29 @@
 package io.project.easycut.easy_cut.global.exception;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 
 @Getter
 public class EasyCutException extends RuntimeException {
 
   private final ErrorCode errorCode;
-  private final List<ErrorResponse.ErrorDetails> errorDetails;
+  private final Map<String, Object> details;
 
-  // 에러 디테일이 없는 생성자
+  /**
+   * 상세 에러 정보가 없는 경우
+   */
   public EasyCutException(ErrorCode errorCode) {
     super(errorCode.getMessage());
     this.errorCode = errorCode;
-    this.errorDetails = new ArrayList<>();
+    this.details = Map.of();
   }
 
-  // 에러 디테일이 있는 생성자
-  public EasyCutException(ErrorCode errorCode, List<ErrorResponse.ErrorDetails> errorDetails) {
+  /**
+   * 상세 에러 정보를 포함하는 경우
+   */
+  public EasyCutException(ErrorCode errorCode, Map<String, Object> details) {
     super(errorCode.getMessage());
     this.errorCode = errorCode;
-    this.errorDetails = errorDetails;
+    this.details = details;
   }
 }

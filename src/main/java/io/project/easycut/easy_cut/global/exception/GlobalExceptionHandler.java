@@ -20,9 +20,9 @@ public class GlobalExceptionHandler {
     ErrorCode errorCode = e.getErrorCode();
 
     // 에러 디테일이 없으면 디테일 없는 ErrorResponse 생성
-    ErrorResponse errorResponse = e.getErrorDetails().isEmpty()
+    ErrorResponse errorResponse = e.getDetails().isEmpty()
         ? ErrorResponse.of(errorCode, request.getRequestURI())
-        : ErrorResponse.of(errorCode, request.getRequestURI(), e.getErrorDetails());
+        : ErrorResponse.of(errorCode, request.getRequestURI(), e.getDetails());
 
     return new ResponseEntity<>(errorResponse, errorCode.getStatus());
   }
