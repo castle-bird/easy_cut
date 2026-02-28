@@ -2,7 +2,7 @@ package io.project.easycut.easy_cut.domain.review.entity;
 
 import io.project.easycut.easy_cut.domain.reservation.entity.Reservation;
 import io.project.easycut.easy_cut.domain.user.entity.User;
-import io.project.easycut.easy_cut.global.entity.BaseTimeEntity;
+import io.project.easycut.easy_cut.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "reviews")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review extends BaseTimeEntity {
+public class Review extends BaseEntity {
 
   @Column(name = "rating", nullable = false)
   private Double rating;

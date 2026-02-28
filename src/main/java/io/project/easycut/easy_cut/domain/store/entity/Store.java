@@ -1,7 +1,7 @@
 package io.project.easycut.easy_cut.domain.store.entity;
 
 import io.project.easycut.easy_cut.domain.user.entity.User;
-import io.project.easycut.easy_cut.global.entity.BaseUpdateTimeEntity;
+import io.project.easycut.easy_cut.global.entity.BaseUpdateEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "stores")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Store extends BaseUpdateTimeEntity {
+public class Store extends BaseUpdateEntity {
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id", nullable = false)

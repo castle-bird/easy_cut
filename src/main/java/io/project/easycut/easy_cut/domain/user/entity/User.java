@@ -1,7 +1,7 @@
 package io.project.easycut.easy_cut.domain.user.entity;
 
 import io.project.easycut.easy_cut.domain.store.entity.Store;
-import io.project.easycut.easy_cut.global.entity.BaseUpdateTimeEntity;
+import io.project.easycut.easy_cut.global.entity.BaseUpdateEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User extends BaseUpdateTimeEntity {
+public class User extends BaseUpdateEntity {
 
   @Column(nullable = false, unique = true, length = 255)
   private String email;

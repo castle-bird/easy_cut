@@ -3,7 +3,7 @@ package io.project.easycut.easy_cut.domain.reservation.entity;
 import io.project.easycut.easy_cut.domain.store.entity.Store;
 import io.project.easycut.easy_cut.domain.store.entity.TimeSlot;
 import io.project.easycut.easy_cut.domain.user.entity.User;
-import io.project.easycut.easy_cut.global.entity.BaseUpdateTimeEntity;
+import io.project.easycut.easy_cut.global.entity.BaseUpdateEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "reservations")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Reservation extends BaseUpdateTimeEntity {
+public class Reservation extends BaseUpdateEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "status", nullable = false, length = 20)

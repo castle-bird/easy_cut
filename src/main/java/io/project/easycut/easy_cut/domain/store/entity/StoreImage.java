@@ -1,6 +1,6 @@
 package io.project.easycut.easy_cut.domain.store.entity;
 
-import io.project.easycut.easy_cut.global.entity.BaseTimeEntity;
+import io.project.easycut.easy_cut.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "store_images")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class StoreImage extends BaseTimeEntity {
+public class StoreImage extends BaseEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "store_id", nullable = false)

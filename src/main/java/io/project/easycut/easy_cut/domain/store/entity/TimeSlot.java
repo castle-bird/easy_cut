@@ -1,6 +1,6 @@
 package io.project.easycut.easy_cut.domain.store.entity;
 
-import io.project.easycut.easy_cut.global.entity.BaseUpdateTimeEntity;
+import io.project.easycut.easy_cut.global.entity.BaseUpdateEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "time_slots")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TimeSlot extends BaseUpdateTimeEntity {
+public class TimeSlot extends BaseUpdateEntity {
 
   /**
    * Batch를 이용해 매달 영업 가능한 날짜와 시간을 자동으로 정의할 것이므로
