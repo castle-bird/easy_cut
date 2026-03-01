@@ -1,11 +1,19 @@
+-- DROP TABLE store_images;
+-- DROP TABLE reviews;
+-- DROP TABLE reservations;
+-- DROP TABLE time_slots;
+-- DROP TABLE stores;
+-- DROP TABLE users;
+
+
 -- 1. 사용자의 정보 (USER)
 CREATE TABLE IF NOT EXISTS users
 (
-    id         SERIAL PRIMARY KEY,
+    id         UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
     email      VARCHAR(255) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
     name       VARCHAR(50)  NOT NULL,
-    phone      VARCHAR(20)  NOT NULL,
+    phone      VARCHAR(20)  NOT NULL UNIQUE,
     role       VARCHAR(20)  NOT NULL DEFAULT 'CUSTOMER',
     created_at TIMESTAMP    NOT NULL,
     updated_at TIMESTAMP    NOT NULL
@@ -14,8 +22,8 @@ CREATE TABLE IF NOT EXISTS users
 -- 2. 예약 매장 (STORE)
 CREATE TABLE IF NOT EXISTS stores
 (
-    id          SERIAL PRIMARY KEY,
-    owner_id    INTEGER      NOT NULL,
+    id          UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
+    owner_id    UUID      NOT NULL,
     name        VARCHAR(100) NOT NULL,
     description TEXT         NOT NULL,
     location    TEXT         NOT NULL,
@@ -30,11 +38,11 @@ CREATE TABLE IF NOT EXISTS stores
 -- 3. 매장마다 예약 가능한 시간 (TIME_SLOT)
 CREATE TABLE IF NOT EXISTS time_slots
 (
-    id             SERIAL PRIMARY KEY,
-    store_id       INTEGER NOT NULL,
-    available_date DATE    NOT NULL,
-    available_time TIME    NOT NULL,
-    is_available   BOOLEAN NOT NULL DEFAULT TRUE,
+    id             UUID PRIMARY KEY   DEFAULT gen_random_uuid(),
+    store_id       UUID   NOT NULL,
+    available_date DATE      NOT NULL,
+    available_time TIME      NOT NULL,
+    is_available   BOOLEAN   NOT NULL DEFAULT TRUE,
     created_at     TIMESTAMP NOT NULL,
     updated_at     TIMESTAMP NOT NULL,
     CONSTRAINT fk_timeslot_store FOREIGN KEY (store_id) REFERENCES stores (id)
@@ -43,10 +51,10 @@ CREATE TABLE IF NOT EXISTS time_slots
 -- 4. 사용자가 예약한 내역 (RESERVATION)
 CREATE TABLE IF NOT EXISTS reservations
 (
-    id           SERIAL PRIMARY KEY,
-    user_id      INTEGER     NOT NULL,
-    store_id     INTEGER     NOT NULL,
-    time_slot_id INTEGER     NOT NULL UNIQUE,
+    id           UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    user_id      UUID     NOT NULL,
+    store_id     UUID     NOT NULL,
+    time_slot_id UUID     NOT NULL UNIQUE,
     status       VARCHAR(20) NOT NULL DEFAULT 'PENDING',
     created_at   TIMESTAMP   NOT NULL,
     updated_at   TIMESTAMP   NOT NULL,
@@ -58,9 +66,9 @@ CREATE TABLE IF NOT EXISTS reservations
 -- 5. 사용자 리뷰 (REVIEW)
 CREATE TABLE IF NOT EXISTS reviews
 (
-    id             SERIAL PRIMARY KEY,
-    reservation_id INTEGER       NOT NULL UNIQUE,
-    user_id        INTEGER       NOT NULL,
+    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    reservation_id UUID       NOT NULL UNIQUE,
+    user_id        UUID       NOT NULL,
     rating         NUMERIC(2, 1) NOT NULL CHECK (rating >= 0 AND rating <= 5),
     comment        TEXT,
     created_at     TIMESTAMP     NOT NULL,
@@ -71,8 +79,8 @@ CREATE TABLE IF NOT EXISTS reviews
 -- 6. 매장 이미지 (STORE_IMAGE)
 CREATE TABLE IF NOT EXISTS store_images
 (
-    id            SERIAL PRIMARY KEY,
-    store_id      INTEGER      NOT NULL,
+    id            UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
+    store_id      UUID      NOT NULL,
     path          VARCHAR(255) NOT NULL,
     content_type  VARCHAR(20)  NOT NULL,
     original_name VARCHAR(255) NOT NULL,

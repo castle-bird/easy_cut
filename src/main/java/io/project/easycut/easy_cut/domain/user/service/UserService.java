@@ -1,8 +1,9 @@
 package io.project.easycut.easy_cut.domain.user.service;
 
-import org.springframework.stereotype.Service;
+import io.project.easycut.easy_cut.domain.user.dto.request.UserCreateDto;
+import io.project.easycut.easy_cut.domain.user.dto.response.UserResponse;
 
-@Service
-public class UserService {
+public interface UserService {
 
+  UserResponse createUser(UserCreateDto userCreateDto);
 }

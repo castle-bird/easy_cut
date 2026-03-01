@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseUpdateEntity {
 
-  @Column(nullable = false, unique = true, length = 255)
+  @Column(nullable = false, unique = true, length = 255, updatable = false)
   private String email;
 
   @Column(nullable = false, length = 255)
@@ -28,46 +28,52 @@ public class User extends BaseUpdateEntity {
   @Column(nullable = false, length = 50)
   private String name;
 
-  @Column(nullable = false, length = 20)
+  @Column(nullable = false, unique = true, length = 20)
   private String phone;
 
+  // 기본값 일반 사용자
+  // 권한은 가입 후 변경할 수 있도록
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 20)
-  private UserRole role;
+  private UserRole role = UserRole.CUSTOMER;
 
   @OneToOne(mappedBy = "owner")
   private Store store;
 
 
   @Builder
-  public User(String email, String password, String name, String phone, UserRole role) {
+  public User(String email, String password, String name, String phone) {
     this.email = email;
     this.password = password;
     this.name = name;
     this.phone = phone;
-    this.role = role != null ? role : UserRole.CUSTOMER;
   }
 
-  public void update(String email, String password, String name, String phone, UserRole role) {
+  /**
+   * 비밀번호 변경 - 암호화 후에 넣을 것.
+   */
+  public void changePassword(String encodedPassword) {
+    this.password = encodedPassword;
+  }
 
-    if (email != null && !email.isBlank()) {
-      this.email = email;
-    }
+  /**
+   * 권한 변경
+   */
+  public void assignRole(UserRole newRole) {
+    this.role = newRole;
+  }
 
-    if (password != null && !password.isBlank()) {
-      this.password = password;
-    }
+  /**
+   * 이름 변경
+   */
+  public void changeName(String newName) {
+    this.name = newName;
+  }
 
-    if (name != null && !name.isBlank()) {
-      this.name = name;
-    }
-
-    if (phone != null && !phone.isBlank()) {
-      this.phone = phone;
-    }
-
-    if (role != null) {
-      this.role = role;
-    }
+  /**
+   * 휴대폰 변경
+   */
+  public void changePhone(String newPhone) {
+    this.phone = newPhone;
   }
 }
