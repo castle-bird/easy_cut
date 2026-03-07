@@ -1,0 +1,35 @@
+# --- [1. Build & Runtime] ---
+build/
+.gradle/
+out/
+bin/
+*.jar
+*.war
+
+# --- [2. Security & Secrets ⭐] ---
+# AWS Access Key, DB 비밀번호 등이 담긴 파일들
+.env
+*.pem
+*.p12
+*.jks
+# Spring 설정 파일 중 비밀 정보를 담은 파일들
+src/main/resources/application-dev.yaml
+src/main/resources/application-prod.yaml
+
+# --- [3. Database & Logs] ---
+.logs/
+*.log
+# 로컬 테스트용 H2 DB 파일 등
+*.mv.db
+*.trace.db
+# 업로드 테스트용 폴더
+uploads/
+
+# --- [4. IDE & OS] ---
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+.DS_Store
+Thumbs.db
