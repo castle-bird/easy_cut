@@ -1,7 +1,7 @@
 -- 1. 사용자의 정보 (MEMBER)
 CREATE TABLE IF NOT EXISTS members
 (
-    id         UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
+    id         UUID PRIMARY KEY,
     email      VARCHAR(255) NOT NULL UNIQUE,
     password   VARCHAR(255) NOT NULL,
     name       VARCHAR(50)  NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS members
 -- 2. 예약 매장 (STORE)
 CREATE TABLE IF NOT EXISTS stores
 (
-    id          UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
+    id          UUID PRIMARY KEY,
     owner_id    UUID         NOT NULL,
     name        VARCHAR(100) NOT NULL,
     description TEXT         NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS stores
 -- 3. 매장마다 예약 가능한 시간 (TIME_SLOT)
 CREATE TABLE IF NOT EXISTS time_slots
 (
-    id             UUID PRIMARY KEY   DEFAULT gen_random_uuid(),
+    id             UUID PRIMARY KEY,
     store_id       UUID      NOT NULL,
     available_date DATE      NOT NULL,
     available_time TIME      NOT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS time_slots
 -- 4. 사용자가 예약한 내역 (RESERVATION)
 CREATE TABLE IF NOT EXISTS reservations
 (
-    id           UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
-    member_id      UUID        NOT NULL,
+    id           UUID PRIMARY KEY,
+    member_id    UUID        NOT NULL,
     store_id     UUID        NOT NULL,
     time_slot_id UUID        NOT NULL UNIQUE,
     status       VARCHAR(20) NOT NULL DEFAULT 'PENDING',
@@ -58,9 +58,9 @@ CREATE TABLE IF NOT EXISTS reservations
 -- 5. 사용자 리뷰 (REVIEW)
 CREATE TABLE IF NOT EXISTS reviews
 (
-    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id             UUID PRIMARY KEY,
     reservation_id UUID          NOT NULL UNIQUE,
-    member_id        UUID          NOT NULL,
+    member_id      UUID          NOT NULL,
     rating         NUMERIC(2, 1) NOT NULL CHECK (rating >= 0 AND rating <= 5),
     comment        TEXT,
     created_at     TIMESTAMP     NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS reviews
 -- 6. 매장 이미지 (STORE_IMAGE)
 CREATE TABLE IF NOT EXISTS store_images
 (
-    id            UUID PRIMARY KEY      DEFAULT gen_random_uuid(),
+    id            UUID PRIMARY KEY,
     store_id      UUID         NOT NULL,
     path          VARCHAR(255) NOT NULL,
     content_type  VARCHAR(20)  NOT NULL,
